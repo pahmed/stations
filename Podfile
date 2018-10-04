@@ -7,6 +7,7 @@ target 'Stations' do
   pod 'GoogleMaps'
   pod 'Alamofire'
   pod 'RxSwift'
+  pod 'Hero', :git => 'https://github.com/HeroTransitions/Hero.git', :branch => 'swift-4.2'
   pod 'Kingfisher', '4.10.0'
   
   target 'StationsTests' do

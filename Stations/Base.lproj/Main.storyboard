@@ -157,11 +157,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RmE-xp-lvj">
                                 <rect key="frame" x="0.0" y="0.0" width="220" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="container"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-7Q-19v">
                                 <rect key="frame" x="16" y="15" width="177.5" height="50"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="g1H-WU-KVN">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="g1H-WU-KVN">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="g1H-WU-KVN" secondAttribute="height" multiplier="1:1" id="38o-5n-gv1"/>
@@ -171,22 +174,29 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="image"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z6o-OB-KZj">
                                         <rect key="frame" x="58" y="5.5" width="119.5" height="39.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Village" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-Zl-nmg">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Village" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-Zl-nmg">
                                                 <rect key="frame" x="0.0" y="0.0" width="119.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="name"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bulding B3 besided…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWo-5H-ikd">
+                                            <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bulding B3 besided…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWo-5H-ikd">
                                                 <rect key="frame" x="0.0" y="25" width="119.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.54509803921568623" green="0.54509803921568623" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="address"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
                                     </stackView>
@@ -225,7 +235,124 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heD-zR-Twx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="717" y="-173"/>
+            <point key="canvasLocation" x="941" y="-210"/>
+        </scene>
+        <!--Station Details View Controller-->
+        <scene sceneID="8ST-x9-bJU">
+            <objects>
+                <viewController storyboardIdentifier="StationDetailsViewController" id="Gvt-Fp-uLm" customClass="StationDetailsViewController" customModule="Stations" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kuc-VJ-XDj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fg-ev-Lq5">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9a-q5-lPl">
+                                        <rect key="frame" x="40" y="581" width="295" height="50"/>
+                                        <color key="backgroundColor" red="0.99215686274509807" green="0.36862745098039218" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="295" id="ehT-om-DLo"/>
+                                            <constraint firstAttribute="height" constant="50" id="zHg-s8-Kkp"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Bookmark">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="handleBookmark:" destination="Gvt-Fp-uLm" eventType="touchUpInside" id="Zrb-uc-O7m"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="S9a-q5-lPl" firstAttribute="centerX" secondItem="5fg-ev-Lq5" secondAttribute="centerX" id="bu8-ff-ocS"/>
+                                    <constraint firstAttribute="bottom" secondItem="S9a-q5-lPl" secondAttribute="bottom" constant="16" id="sdm-U7-l26"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="container"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g2c-jv-Lxc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="295"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="295" id="mwp-UJ-eLM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="image"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dhi-nV-A5A">
+                                <rect key="frame" x="20" y="315" width="136.5" height="49"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Village" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpp-FY-l4p">
+                                        <rect key="frame" x="0.0" y="0.0" width="119" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="name"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bulding B3 besided…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxE-if-z5P">
+                                        <rect key="frame" x="0.0" y="32" width="136.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.54509803921568623" green="0.54509803921568623" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="address"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJ5-1p-PO5">
+                                <rect key="frame" x="20" y="20" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="TSr-Wm-BXK"/>
+                                    <constraint firstAttribute="width" secondItem="yJ5-1p-PO5" secondAttribute="height" id="tir-jv-j98"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleDismiss:" destination="Gvt-Fp-uLm" eventType="touchUpInside" id="j20-7D-DSv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dhi-nV-A5A" firstAttribute="top" secondItem="g2c-jv-Lxc" secondAttribute="bottom" constant="20" id="4mx-oX-pbN"/>
+                            <constraint firstItem="g2c-jv-Lxc" firstAttribute="trailing" secondItem="BYn-lN-vJQ" secondAttribute="trailing" id="Q3Q-y0-Zm1"/>
+                            <constraint firstItem="yJ5-1p-PO5" firstAttribute="top" secondItem="kuc-VJ-XDj" secondAttribute="top" constant="20" id="V9e-Y5-aXm"/>
+                            <constraint firstItem="g2c-jv-Lxc" firstAttribute="top" secondItem="kuc-VJ-XDj" secondAttribute="top" id="VEu-8L-afM"/>
+                            <constraint firstItem="5fg-ev-Lq5" firstAttribute="trailing" secondItem="BYn-lN-vJQ" secondAttribute="trailing" id="dJ6-NY-fPo"/>
+                            <constraint firstItem="g2c-jv-Lxc" firstAttribute="leading" secondItem="BYn-lN-vJQ" secondAttribute="leading" id="daH-1D-Rln"/>
+                            <constraint firstItem="5fg-ev-Lq5" firstAttribute="leading" secondItem="BYn-lN-vJQ" secondAttribute="leading" id="j5K-Lk-5X0"/>
+                            <constraint firstItem="5fg-ev-Lq5" firstAttribute="top" secondItem="BYn-lN-vJQ" secondAttribute="top" id="jhF-sF-7gM"/>
+                            <constraint firstItem="yJ5-1p-PO5" firstAttribute="leading" secondItem="BYn-lN-vJQ" secondAttribute="leading" constant="20" id="o22-sT-4To"/>
+                            <constraint firstItem="dhi-nV-A5A" firstAttribute="leading" secondItem="BYn-lN-vJQ" secondAttribute="leading" constant="20" id="qK0-KG-fQg"/>
+                            <constraint firstItem="5fg-ev-Lq5" firstAttribute="bottom" secondItem="BYn-lN-vJQ" secondAttribute="bottom" id="xfb-DD-Kd4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BYn-lN-vJQ"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="addressLabel" destination="JxE-if-z5P" id="hur-aW-vns"/>
+                        <outlet property="imageView" destination="g2c-jv-Lxc" id="Byv-4Y-AB8"/>
+                        <outlet property="nameLabel" destination="rpp-FY-l4p" id="xMz-Ev-tTs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G56-JX-a4t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1589.5999999999999" y="26.53673163418291"/>
         </scene>
     </scenes>
     <resources>

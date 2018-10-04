@@ -11,27 +11,27 @@ import Kingfisher
 
 final class CalloutViewController: UIViewController {
     
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var addressLabel: UILabel!
-    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
     
-    private var name: String!
-    private var address: String!
-    private var imageURL: URL?
+    private var station: Station!
     
     var handleTap: (() -> ())?
     
-    class func calloutWith(name: String, address: String, imageURL: URL?) -> CalloutViewController {
+    // MARK: - Initializers
+    
+    class func calloutWith(station: Station) -> CalloutViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let vc = storyboard.instantiateViewController(withIdentifier: "CalloutViewController") as! CalloutViewController
-        vc.name = name
-        vc.address = address
-        vc.imageURL = imageURL
+        vc.station = station
         
         return vc
     }
+    
+    // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +39,17 @@ final class CalloutViewController: UIViewController {
         bindModelToView()
     }
     
-    private func bindModelToView() {
-        nameLabel.text = name
-        addressLabel.text = address
-        imageView.kf.setImage(with: imageURL)
-    }
+    // MARK: - Events
     
     @IBAction func tapAction(_ sender: Any) {
         handleTap?()
+    }
+    
+    // MARK: - Private
+    
+    private func bindModelToView() {
+        nameLabel.text = station.name
+        addressLabel.text = station.address
+        imageView.kf.setImage(with: station.imageURL)
     }
 }

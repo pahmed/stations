@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import RxSwift
+import Hero
 
 protocol HomeDisplayLogic {
     
@@ -25,6 +26,8 @@ class HomeViewController: UIViewController {
     var shapeLayer: CAShapeLayer!
     var selectedLine: Line?
     var animation: CABasicAnimation!
+    var callout: CalloutViewController!
+    var snapshot: UIView?
     
     // MARK: - Lifecycle
     
@@ -47,12 +50,51 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func presentCallout(from point: CGPoint, for station: Station) {
-        let vc = CalloutViewController.calloutWith(name: station.name, address: station.address, imageURL: station.imageURL)
+    private func snapshotFor(callout: CalloutViewController, in view: UIView) -> UIView {
+        let snapshot = callout.view.clone()!
+        snapshot.layer.cornerRadius = 12
+        snapshot.clipsToBounds = true
+        snapshot.frame = view.convert(callout.view.frame, from: callout.view.superview)
         
-        vc.modalPresentationStyle = .popover
+        snapshot.hero.id = "container"
         
-        let popover = vc.popoverPresentationController!
+        let imageView = snapshot.viewWithTag(1)!
+        imageView.layer.cornerRadius = 8
+        imageView.hero.id = "image"
+        
+        snapshot.viewWithTag(2)!.hero.id = "name"
+        snapshot.viewWithTag(3)!.hero.id = "address"
+        
+        return snapshot
+    }
+    
+    private func renderCalloutSnapshot() {
+        snapshot?.removeFromSuperview()
+        snapshot = self.snapshotFor(callout: self.callout, in: self.view)
+        view.addSubview(snapshot!)
+    }
+    
+    private func presentCallout(from point: CGPoint, for station: Station, animated: Bool = true, completion: (() -> Void)? = nil) {
+        callout = CalloutViewController.calloutWith(station: station)
+        callout.modalPresentationStyle = .popover
+        
+        callout.handleTap = {
+            self.renderCalloutSnapshot()
+            
+            let detailsVC = StationDetailsViewController.controllerWith(station: station)
+            detailsVC.handleDismiss = { vc in
+                vc.dismiss(animated: true)
+                self.presentCallout(from: point, for: station, animated: false) {
+                    self.snapshot!.removeFromSuperview()
+                }
+            }
+            
+            self.callout.dismiss(animated: false)
+            
+            self.present(detailsVC, animated: true)
+        }
+        
+        let popover = callout.popoverPresentationController!
         popover.delegate = self
         
         let rect = CGRect(origin: point, size: CGSize.zero).inset(by: UIEdgeInsets(all: 15))
@@ -60,8 +102,7 @@ class HomeViewController: UIViewController {
         popover.permittedArrowDirections = [.down]
         popover.sourceView = mapView
         popover.sourceRect = rect
-        
-        present(vc, animated: true, completion: nil)
+        present(callout, animated: animated, completion: completion)
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -95,8 +136,7 @@ class HomeViewController: UIViewController {
         clearMap()
         
         let positions = stations.map({ $0.location.toLocationCoordinate2D })
-        let path = self.path(for: positions)
-        let bounds = GMSCoordinateBounds(path: path)
+        let bounds = GMSCoordinateBounds(path: positions.toGMSPath)
         
         let camera = mapView.camera(for: bounds, insets: UIEdgeInsets(all: 60))!
         mapView.animate(to: camera)
@@ -121,7 +161,7 @@ class HomeViewController: UIViewController {
         marker.userData = station
     }
     
-    private func drawNativePath(for positions: [CLLocationCoordinate2D]) {
+    private func shapeLayerFrom(positions: [CLLocationCoordinate2D]) -> CAShapeLayer {
         var points = positions
             .map({ self.mapView.projection.point(for: $0) })
         
@@ -134,12 +174,18 @@ class HomeViewController: UIViewController {
             bezierPath.addLine(to: point)
         }
         
-        shapeLayer = CAShapeLayer()
+        let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = Color.accent.cgColor
         shapeLayer.lineWidth = 3
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.path = bezierPath.cgPath
         
+        return shapeLayer
+    }
+    
+    private func drawNativePath(for positions: [CLLocationCoordinate2D]) {
+        shapeLayer = shapeLayerFrom(positions: positions)
+
         mapView.layer.addSublayer(shapeLayer)
         
         animate(shapeLayer: shapeLayer)
@@ -159,22 +205,10 @@ class HomeViewController: UIViewController {
         shapeLayer.add(animation, forKey: animation.keyPath)
     }
     
-    private func path(for positions: [CLLocationCoordinate2D]) -> GMSPath {
-        let path = GMSMutablePath()
-        
-        for position in positions {
-            path.add(position)
-        }
-        
-        return path
-    }
-    
     private func drawPath(for positions: [CLLocationCoordinate2D]) {
-        let path = self.path(for: positions)
-        
-        let polyline = GMSPolyline(path: path)
+        let polyline = GMSPolyline(path: positions.toGMSPath)
         polyline.strokeWidth = 3
-        polyline.strokeColor = .red
+        polyline.strokeColor = Color.accent
         polyline.map = self.mapView
     }
     

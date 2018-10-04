@@ -18,6 +18,9 @@
 		0F373F532165510A00BC64DA /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F522165510A00BC64DA /* APIError.swift */; };
 		0F373F562165C77B00BC64DA /* CalloutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F552165C77B00BC64DA /* CalloutViewController.swift */; };
 		0F373F5A2165CC6100BC64DA /* UIEdgeInsets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F592165CC6100BC64DA /* UIEdgeInsets+Extensions.swift */; };
+		0F373F5D2165DA5900BC64DA /* StationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F5C2165DA5900BC64DA /* StationDetailsViewController.swift */; };
+		0F373F6221662F8800BC64DA /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F6121662F8800BC64DA /* UIView+Extensions.swift */; };
+		0F373F65216638A600BC64DA /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F64216638A600BC64DA /* Array+Extensions.swift */; };
 		0FB6969121647EA30010AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB6969021647EA30010AABD /* AppDelegate.swift */; };
 		0FB6969621647EA30010AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969421647EA30010AABD /* Main.storyboard */; };
 		0FB6969821647EA30010AABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969721647EA30010AABD /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 		0F373F522165510A00BC64DA /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		0F373F552165C77B00BC64DA /* CalloutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutViewController.swift; sourceTree = "<group>"; };
 		0F373F592165CC6100BC64DA /* UIEdgeInsets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extensions.swift"; sourceTree = "<group>"; };
+		0F373F5C2165DA5900BC64DA /* StationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailsViewController.swift; sourceTree = "<group>"; };
+		0F373F6121662F8800BC64DA /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		0F373F64216638A600BC64DA /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		0FB6968D21647EA30010AABD /* Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB6969021647EA30010AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FB6969521647EA30010AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 		0F373F572165CC3F00BC64DA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0F373F632166388A00BC64DA /* Foundation */,
 				0F373F582165CC4A00BC64DA /* UIKit */,
 			);
 			path = Extensions;
@@ -131,8 +138,25 @@
 			isa = PBXGroup;
 			children = (
 				0F373F592165CC6100BC64DA /* UIEdgeInsets+Extensions.swift */,
+				0F373F6121662F8800BC64DA /* UIView+Extensions.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		0F373F5B2165DA3900BC64DA /* Station Details */ = {
+			isa = PBXGroup;
+			children = (
+				0F373F5C2165DA5900BC64DA /* StationDetailsViewController.swift */,
+			);
+			path = "Station Details";
+			sourceTree = "<group>";
+		};
+		0F373F632166388A00BC64DA /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				0F373F64216638A600BC64DA /* Array+Extensions.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		0FB6968421647EA30010AABD = {
@@ -202,6 +226,7 @@
 		0FB696B22164807E0010AABD /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				0F373F5B2165DA3900BC64DA /* Station Details */,
 				0F373F5421655B0700BC64DA /* Callout */,
 				0FB696CB216495370010AABD /* Lines */,
 				0FB696B3216483E60010AABD /* Home */,
@@ -353,6 +378,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Stations/Pods-Stations-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
@@ -361,6 +387,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -445,6 +472,7 @@
 				0F373F44216538E600BC64DA /* LineCollectionViewCell.swift in Sources */,
 				0FB696B72164860E0010AABD /* HomeInteractor.swift in Sources */,
 				0F373F422165386C00BC64DA /* LinesViewController.swift in Sources */,
+				0F373F5D2165DA5900BC64DA /* StationDetailsViewController.swift in Sources */,
 				0F373F4B21653C6A00BC64DA /* LinesPresenter.swift in Sources */,
 				0F373F562165C77B00BC64DA /* CalloutViewController.swift in Sources */,
 				0F373F51216550C000BC64DA /* Result.swift in Sources */,
@@ -453,10 +481,12 @@
 				0FB6969121647EA30010AABD /* AppDelegate.swift in Sources */,
 				0F373F532165510A00BC64DA /* APIError.swift in Sources */,
 				0F373F4921653B7500BC64DA /* Models.swift in Sources */,
+				0F373F6221662F8800BC64DA /* UIView+Extensions.swift in Sources */,
 				0F373F4F2165482F00BC64DA /* Color.swift in Sources */,
 				0F373F5A2165CC6100BC64DA /* UIEdgeInsets+Extensions.swift in Sources */,
 				0FB696B5216483FB0010AABD /* HomeViewController.swift in Sources */,
 				0FB696C1216488A50010AABD /* API.swift in Sources */,
+				0F373F65216638A600BC64DA /* Array+Extensions.swift in Sources */,
 				0FB696B9216486B60010AABD /* HomePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

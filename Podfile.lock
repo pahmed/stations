@@ -5,12 +5,14 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
+  - Hero (1.4.0)
   - Kingfisher (4.10.0)
   - RxSwift (4.3.1)
 
 DEPENDENCIES:
   - Alamofire
   - GoogleMaps
+  - Hero (from `https://github.com/HeroTransitions/Hero.git`, branch `swift-4.2`)
   - Kingfisher (= 4.10.0)
   - RxSwift
 
@@ -21,12 +23,23 @@ SPEC REPOS:
     - Kingfisher
     - RxSwift
 
+EXTERNAL SOURCES:
+  Hero:
+    :branch: swift-4.2
+    :git: https://github.com/HeroTransitions/Hero.git
+
+CHECKOUT OPTIONS:
+  Hero:
+    :commit: 85be93ff80247296ee17f340bef73cfeb18c9fa0
+    :git: https://github.com/HeroTransitions/Hero.git
+
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: 4f4449ace81889d80cf97aee4dbcf3a2ed1abd40
+PODFILE CHECKSUM: 4a70a569f534977d2afec8f13a052985bb14e043
 
 COCOAPODS: 1.5.3
