@@ -346,6 +346,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="addressLabel" destination="JxE-if-z5P" id="hur-aW-vns"/>
+                        <outlet property="bookmarkButton" destination="S9a-q5-lPl" id="gvr-wA-M9O"/>
                         <outlet property="imageView" destination="g2c-jv-Lxc" id="Byv-4Y-AB8"/>
                         <outlet property="nameLabel" destination="rpp-FY-l4p" id="xMz-Ev-tTs"/>
                     </connections>

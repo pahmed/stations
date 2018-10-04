@@ -59,20 +59,20 @@ class HomeViewController: UIViewController {
         callout = CalloutViewController.calloutWith(station: station)
         callout.modalPresentationStyle = .popover
         
-        callout.handleTap = {
-            self.renderCalloutSnapshot()
+        callout.handleTap = { [weak self] in
+            self?.renderCalloutSnapshot()
             
             let detailsVC = StationDetailsViewController.controllerWith(station: station)
             detailsVC.handleDismiss = { vc in
                 vc.dismiss(animated: true)
-                self.presentCallout(from: point, for: station, animated: false) {
-                    self.snapshot!.removeFromSuperview()
+                self?.presentCallout(from: point, for: station, animated: false) {
+                    self?.snapshot!.removeFromSuperview()
                 }
             }
             
-            self.callout.dismiss(animated: false)
+            self?.callout.dismiss(animated: false)
             
-            self.present(detailsVC, animated: true)
+            self?.present(detailsVC, animated: true)
         }
         
         let popover = callout.popoverPresentationController!

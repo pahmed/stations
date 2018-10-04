@@ -23,6 +23,10 @@
 		0F373F65216638A600BC64DA /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F64216638A600BC64DA /* Array+Extensions.swift */; };
 		0F373F6A21663FB700BC64DA /* GMSMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F6921663FB700BC64DA /* GMSMapView+Extensions.swift */; };
 		0F373F6C21664BBA00BC64DA /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F6B21664BBA00BC64DA /* Icon.swift */; };
+		0F373F6E2166574500BC64DA /* StationDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F6D2166574500BC64DA /* StationDetailsInteractor.swift */; };
+		0F373F702166578C00BC64DA /* StationDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F6F2166578C00BC64DA /* StationDetailsPresenter.swift */; };
+		0F373F73216659A000BC64DA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F72216659A000BC64DA /* Alert.swift */; };
+		0F373F7521665BA200BC64DA /* UIButton+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F7421665BA200BC64DA /* UIButton+Loading.swift */; };
 		0FB6969121647EA30010AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB6969021647EA30010AABD /* AppDelegate.swift */; };
 		0FB6969621647EA30010AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969421647EA30010AABD /* Main.storyboard */; };
 		0FB6969821647EA30010AABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969721647EA30010AABD /* Assets.xcassets */; };
@@ -64,6 +68,10 @@
 		0F373F64216638A600BC64DA /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		0F373F6921663FB700BC64DA /* GMSMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+Extensions.swift"; sourceTree = "<group>"; };
 		0F373F6B21664BBA00BC64DA /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		0F373F6D2166574500BC64DA /* StationDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailsInteractor.swift; sourceTree = "<group>"; };
+		0F373F6F2166578C00BC64DA /* StationDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDetailsPresenter.swift; sourceTree = "<group>"; };
+		0F373F72216659A000BC64DA /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		0F373F7421665BA200BC64DA /* UIButton+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Loading.swift"; sourceTree = "<group>"; };
 		0FB6968D21647EA30010AABD /* Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB6969021647EA30010AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FB6969521647EA30010AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,6 +152,7 @@
 			children = (
 				0F373F592165CC6100BC64DA /* UIEdgeInsets+Extensions.swift */,
 				0F373F6121662F8800BC64DA /* UIView+Extensions.swift */,
+				0F373F7421665BA200BC64DA /* UIButton+Loading.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -152,6 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				0F373F5C2165DA5900BC64DA /* StationDetailsViewController.swift */,
+				0F373F6D2166574500BC64DA /* StationDetailsInteractor.swift */,
+				0F373F6F2166578C00BC64DA /* StationDetailsPresenter.swift */,
 			);
 			path = "Station Details";
 			sourceTree = "<group>";
@@ -162,6 +173,14 @@
 				0F373F64216638A600BC64DA /* Array+Extensions.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		0F373F712166599300BC64DA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0F373F72216659A000BC64DA /* Alert.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		0FB6968421647EA30010AABD = {
@@ -188,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB6969021647EA30010AABD /* AppDelegate.swift */,
+				0F373F712166599300BC64DA /* Utils */,
 				0F373F572165CC3F00BC64DA /* Extensions */,
 				0F373F4721653B5A00BC64DA /* Models */,
 				0FB696B22164807E0010AABD /* Scenes */,
@@ -481,6 +501,9 @@
 				0F373F5D2165DA5900BC64DA /* StationDetailsViewController.swift in Sources */,
 				0F373F4B21653C6A00BC64DA /* LinesPresenter.swift in Sources */,
 				0F373F562165C77B00BC64DA /* CalloutViewController.swift in Sources */,
+				0F373F73216659A000BC64DA /* Alert.swift in Sources */,
+				0F373F6E2166574500BC64DA /* StationDetailsInteractor.swift in Sources */,
+				0F373F7521665BA200BC64DA /* UIButton+Loading.swift in Sources */,
 				0F373F51216550C000BC64DA /* Result.swift in Sources */,
 				0F373F4621653B2B00BC64DA /* LinesInteractor.swift in Sources */,
 				0F373F4D21653F7900BC64DA /* LinesModels.swift in Sources */,
@@ -490,6 +513,7 @@
 				0F373F4921653B7500BC64DA /* Models.swift in Sources */,
 				0F373F6221662F8800BC64DA /* UIView+Extensions.swift in Sources */,
 				0F373F6A21663FB700BC64DA /* GMSMapView+Extensions.swift in Sources */,
+				0F373F702166578C00BC64DA /* StationDetailsPresenter.swift in Sources */,
 				0F373F4F2165482F00BC64DA /* Color.swift in Sources */,
 				0F373F5A2165CC6100BC64DA /* UIEdgeInsets+Extensions.swift in Sources */,
 				0FB696B5216483FB0010AABD /* HomeViewController.swift in Sources */,

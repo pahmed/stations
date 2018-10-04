@@ -9,15 +9,26 @@
 import UIKit
 import Kingfisher
 
+protocol StationDetailsDisplayLogic {
+    func displayAlert(title: String, message: String)
+}
+
 class StationDetailsViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var bookmarkButton: UIButton!
     
     var handleDismiss: ((StationDetailsViewController) -> ())?
     
+    lazy var interactor: StationDetailsBusinessLogic = {
+        return StationDetailsInteractor(presenter: StationDetailsPresenter(displayer: self))
+    }()
+    
     private var station: Station!
+    
+    // MARK: - Initializers
     
     class func controllerWith(station: Station) -> StationDetailsViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -33,13 +44,15 @@ class StationDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        set(isLoading: false)
         bindModelToView()
     }
     
     // MARK: - Events
     
     @IBAction func handleBookmark(_ sender: Any) {
-        
+        set(isLoading: true)
+        interactor.bookmark(station: station)
     }
     
     @IBAction func handleDismiss(_ sender: Any) {
@@ -58,4 +71,22 @@ class StationDetailsViewController: UIViewController {
         addressLabel.text = station.address
     }
     
+    private func set(isLoading: Bool) {
+        let title = isLoading ? nil : NSLocalizedString("Bookmark", comment: "")
+        bookmarkButton.setTitle(title, for: .normal)
+        bookmarkButton.setLoadingIndicator(visibile: isLoading)
+        bookmarkButton.isEnabled = (isLoading == false)
+    }
+    
+}
+
+// MARK: - Display Logic
+
+extension StationDetailsViewController: StationDetailsDisplayLogic {
+    func displayAlert(title: String, message: String) {
+        set(isLoading: false)
+        Alert(title: title, message: message)
+            .addCancelAction()
+            .show(in: self)
+    }
 }
