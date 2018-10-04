@@ -14,6 +14,7 @@ protocol LinesDisplayLogic {
 
 protocol LinesViewControllerDelegate: class {
     func linesViewController(_ linesViewController: LinesViewController, didSelect line: Line)
+    func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController)
 }
 
 class LinesViewController: UIViewController {
@@ -60,6 +61,7 @@ extension LinesViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
 extension LinesViewController: LinesDisplayLogic {
     func display(lines: [Line]) {
+        self.delegate?.linesViewControllerDidLoadLines(self)
         self.lines = lines
         collectionView.reloadData()
     }

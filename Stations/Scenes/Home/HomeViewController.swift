@@ -17,6 +17,7 @@ protocol HomeDisplayLogic {
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var linesBottomConstraint: NSLayoutConstraint!
     private var mapView: GMSMapView!
     private var disposeBag = DisposeBag()
     
@@ -155,6 +156,19 @@ class HomeViewController: UIViewController {
         shapeLayer.add(animation, forKey: animation.keyPath)
     }
     
+    private func showLinesView() {
+        linesBottomConstraint.constant = 16.0
+        
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 5,
+            options: .curveEaseInOut,
+            animations: {
+                self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
 }
 
 // MARK: - DisplayLogic
@@ -184,6 +198,10 @@ extension HomeViewController: LinesViewControllerDelegate {
     func linesViewController(_ linesViewController: LinesViewController, didSelect line: Line) {
         selectedLine = line
         draw(stations: line.stations)
+    }
+    
+    func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController) {
+        showLinesView()
     }
 }
 
