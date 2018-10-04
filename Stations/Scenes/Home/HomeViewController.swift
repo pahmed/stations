@@ -25,7 +25,6 @@ class HomeViewController: UIViewController {
     }()
     var shapeLayer: CAShapeLayer!
     var selectedLine: Line?
-    var animation: CABasicAnimation!
     var callout: CalloutViewController!
     var snapshot: UIView?
     
@@ -50,27 +49,9 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func snapshotFor(callout: CalloutViewController, in view: UIView) -> UIView {
-        let snapshot = callout.view.clone()!
-        snapshot.layer.cornerRadius = 12
-        snapshot.clipsToBounds = true
-        snapshot.frame = view.convert(callout.view.frame, from: callout.view.superview)
-        
-        snapshot.hero.id = "container"
-        
-        let imageView = snapshot.viewWithTag(1)!
-        imageView.layer.cornerRadius = 8
-        imageView.hero.id = "image"
-        
-        snapshot.viewWithTag(2)!.hero.id = "name"
-        snapshot.viewWithTag(3)!.hero.id = "address"
-        
-        return snapshot
-    }
-    
     private func renderCalloutSnapshot() {
         snapshot?.removeFromSuperview()
-        snapshot = self.snapshotFor(callout: self.callout, in: self.view)
+        snapshot = mapView.snapshotFor(callout: callout, in: view)
         view.addSubview(snapshot!)
     }
     
@@ -146,70 +127,32 @@ class HomeViewController: UIViewController {
             .take(positions.count)
             .delaySubscription(0.2, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
-                self?.showMarker(at: positions[index], for: stations[index])
+                let markerImage = Icon.defaultMarker
+                self?.mapView.showMarker(for: stations[index], markerImage: markerImage)
                 }, onCompleted: { [weak self] in
                     self?.drawNativePath(for: positions)
             }).disposed(by: disposeBag)
     }
     
-    private func showMarker(at position: CLLocationCoordinate2D, for station: Station) {
-        let marker = GMSMarker(position: position)
-        marker.icon = UIImage(named: "EndPoint")
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-        marker.appearAnimation = .pop
-        marker.map = mapView
-        marker.userData = station
-    }
-    
-    private func shapeLayerFrom(positions: [CLLocationCoordinate2D]) -> CAShapeLayer {
-        var points = positions
-            .map({ self.mapView.projection.point(for: $0) })
-        
-        let bezierPath = UIBezierPath()
-        
-        let first = points.removeFirst()
-        bezierPath.move(to: first)
-        
-        for point in points {
-            bezierPath.addLine(to: point)
-        }
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = Color.accent.cgColor
-        shapeLayer.lineWidth = 3
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.path = bezierPath.cgPath
-        
-        return shapeLayer
-    }
-    
     private func drawNativePath(for positions: [CLLocationCoordinate2D]) {
-        shapeLayer = shapeLayerFrom(positions: positions)
+        shapeLayer = mapView.shapeLayerFrom(positions: positions)
 
+        shapeLayer.zPosition = 1
         mapView.layer.addSublayer(shapeLayer)
         
         animate(shapeLayer: shapeLayer)
     }
     
     private func animate(shapeLayer: CAShapeLayer) {
-        animation = CABasicAnimation(keyPath: "strokeEnd")
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
         
         animation.fromValue = 0
         animation.toValue = 1
-        animation.duration = 0.3
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut) // animation curve is Ease Out
-        animation.fillMode = CAMediaTimingFillMode.both // keep to value after finishing
-        animation.isRemovedOnCompletion = true // don't remove after finishing
+        animation.duration = 0.5
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.delegate = self
         
         shapeLayer.add(animation, forKey: animation.keyPath)
-    }
-    
-    private func drawPath(for positions: [CLLocationCoordinate2D]) {
-        let polyline = GMSPolyline(path: positions.toGMSPath)
-        polyline.strokeWidth = 3
-        polyline.strokeColor = Color.accent
-        polyline.map = self.mapView
     }
     
 }
@@ -250,7 +193,7 @@ extension HomeViewController: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         let positions = selectedLine!.stations.map({ $0.location.toLocationCoordinate2D })
         
-        drawPath(for: positions)
+        mapView.drawPath(for: positions)
         
         Observable<Int>
             .interval(RxTimeInterval(0.2), scheduler: MainScheduler.instance)
