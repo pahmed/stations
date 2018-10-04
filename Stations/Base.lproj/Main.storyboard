@@ -146,6 +146,87 @@
             </objects>
             <point key="canvasLocation" x="818" y="27"/>
         </scene>
+        <!--Callout View Controller-->
+        <scene sceneID="lVl-Eb-uao">
+            <objects>
+                <viewController storyboardIdentifier="CalloutViewController" id="3vi-Jc-hqD" customClass="CalloutViewController" customModule="Stations" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P1d-cY-ggx">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RmE-xp-lvj">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TLE-7Q-19v">
+                                <rect key="frame" x="16" y="15" width="177.5" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Line" translatesAutoresizingMaskIntoConstraints="NO" id="g1H-WU-KVN">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="g1H-WU-KVN" secondAttribute="height" multiplier="1:1" id="38o-5n-gv1"/>
+                                            <constraint firstAttribute="width" constant="50" id="Dy3-T6-1AJ"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z6o-OB-KZj">
+                                        <rect key="frame" x="58" y="5.5" width="119.5" height="39.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Village" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-Zl-nmg">
+                                                <rect key="frame" x="0.0" y="0.0" width="119.5" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bulding B3 besided…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWo-5H-ikd">
+                                                <rect key="frame" x="0.0" y="25" width="119.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.54509803921568623" green="0.54509803921568623" blue="0.54509803921568623" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAQ-HL-fLJ">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="80"/>
+                                <connections>
+                                    <action selector="tapAction:" destination="3vi-Jc-hqD" eventType="touchUpInside" id="Bjt-BL-SLg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="iAQ-HL-fLJ" firstAttribute="leading" secondItem="fH9-sV-kSf" secondAttribute="leading" id="84c-d5-VYF"/>
+                            <constraint firstItem="iAQ-HL-fLJ" firstAttribute="top" secondItem="fH9-sV-kSf" secondAttribute="top" id="CLV-PH-ngV"/>
+                            <constraint firstItem="RmE-xp-lvj" firstAttribute="leading" secondItem="fH9-sV-kSf" secondAttribute="leading" id="CZz-SJ-24K"/>
+                            <constraint firstItem="iAQ-HL-fLJ" firstAttribute="trailing" secondItem="fH9-sV-kSf" secondAttribute="trailing" id="Dc1-TG-zp3"/>
+                            <constraint firstItem="TLE-7Q-19v" firstAttribute="leading" secondItem="fH9-sV-kSf" secondAttribute="leading" constant="16" id="F7z-5c-SkT"/>
+                            <constraint firstItem="RmE-xp-lvj" firstAttribute="bottom" secondItem="fH9-sV-kSf" secondAttribute="bottom" id="KIl-lp-R7t"/>
+                            <constraint firstItem="TLE-7Q-19v" firstAttribute="centerY" secondItem="P1d-cY-ggx" secondAttribute="centerY" id="KnW-Ie-vdg"/>
+                            <constraint firstItem="iAQ-HL-fLJ" firstAttribute="bottom" secondItem="fH9-sV-kSf" secondAttribute="bottom" id="bZR-vI-Jrt"/>
+                            <constraint firstItem="fH9-sV-kSf" firstAttribute="trailing" secondItem="RmE-xp-lvj" secondAttribute="trailing" id="j4y-Rn-8r6"/>
+                            <constraint firstItem="RmE-xp-lvj" firstAttribute="top" secondItem="fH9-sV-kSf" secondAttribute="top" id="uXp-NT-yUn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fH9-sV-kSf"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="220" height="80"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="220" height="80"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="hWo-5H-ikd" id="prd-uQ-f4B"/>
+                        <outlet property="imageView" destination="g1H-WU-KVN" id="54A-kE-hmE"/>
+                        <outlet property="nameLabel" destination="dXw-Zl-nmg" id="sJa-qg-Yyx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heD-zR-Twx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="717" y="-173"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Line" width="13" height="37"/>

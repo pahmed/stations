@@ -5,24 +5,28 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
+  - Kingfisher (4.10.0)
   - RxSwift (4.3.1)
 
 DEPENDENCIES:
   - Alamofire
   - GoogleMaps
+  - Kingfisher (= 4.10.0)
   - RxSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - GoogleMaps
+    - Kingfisher
     - RxSwift
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: c1fbbde5b8756fc1c10ba634e7d2f53dd1bb9aad
+PODFILE CHECKSUM: 4f4449ace81889d80cf97aee4dbcf3a2ed1abd40
 
 COCOAPODS: 1.5.3

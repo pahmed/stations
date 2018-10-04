@@ -47,6 +47,27 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func presentCallout(from point: CGPoint, for station: Station) {
+        let vc = CalloutViewController.calloutWith(name: station.name, address: station.address, imageURL: station.imageURL)
+        
+        vc.modalPresentationStyle = .popover
+        
+        let popover = vc.popoverPresentationController!
+        popover.delegate = self
+        
+        let rect = CGRect(origin: point, size: CGSize.zero).inset(by: UIEdgeInsets(all: 15))
+        
+        popover.permittedArrowDirections = [.down]
+        popover.sourceView = mapView
+        popover.sourceRect = rect
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     // MARK: - Private
     
     private func setupMapView() {
@@ -70,14 +91,14 @@ class HomeViewController: UIViewController {
         mapView.clear()
     }
     
-    private func draw(locations: [Location]) {
+    private func draw(stations: [Station]) {
         clearMap()
         
-        let positions = locations.map({ $0.toLocationCoordinate2D })
+        let positions = stations.map({ $0.location.toLocationCoordinate2D })
         let path = self.path(for: positions)
         let bounds = GMSCoordinateBounds(path: path)
         
-        let camera = mapView.camera(for: bounds, insets: UIEdgeInsets(top: 60, left: 60, bottom: 60, right: 60))!
+        let camera = mapView.camera(for: bounds, insets: UIEdgeInsets(all: 60))!
         mapView.animate(to: camera)
         
         Observable<Int>
@@ -85,18 +106,19 @@ class HomeViewController: UIViewController {
             .take(positions.count)
             .delaySubscription(0.2, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] index in
-                self?.showMarker(for: positions[index])
+                self?.showMarker(at: positions[index], for: stations[index])
                 }, onCompleted: { [weak self] in
                     self?.drawNativePath(for: positions)
             }).disposed(by: disposeBag)
     }
     
-    private func showMarker(for position: CLLocationCoordinate2D) {
+    private func showMarker(at position: CLLocationCoordinate2D, for station: Station) {
         let marker = GMSMarker(position: position)
         marker.icon = UIImage(named: "EndPoint")
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         marker.appearAnimation = .pop
         marker.map = mapView
+        marker.userData = station
     }
     
     private func drawNativePath(for positions: [CLLocationCoordinate2D]) {
@@ -168,6 +190,15 @@ extension HomeViewController: HomeDisplayLogic {
 
 extension HomeViewController: GMSMapViewDelegate {
     
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        let point = mapView.projection.point(for: marker.position)
+        
+        let station = marker.userData as! Station
+        
+        presentCallout(from: point, for: station)
+        return true
+    }
+    
 }
 
 // MARK: - LinesViewControllerDelegate
@@ -175,7 +206,7 @@ extension HomeViewController: GMSMapViewDelegate {
 extension HomeViewController: LinesViewControllerDelegate {
     func linesViewController(_ linesViewController: LinesViewController, didSelect line: Line) {
         selectedLine = line
-        draw(locations: line.stations.map({ $0.location }))
+        draw(stations: line.stations)
     }
 }
 
@@ -195,4 +226,10 @@ extension HomeViewController: CAAnimationDelegate {
                 self?.shapeLayer.removeFromSuperlayer()
             }).disposed(by: disposeBag)
     }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension HomeViewController: UIPopoverPresentationControllerDelegate {
+    
 }

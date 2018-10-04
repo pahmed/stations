@@ -24,6 +24,10 @@ struct Station: Codable {
     let img_url: String
     let address: String
     let location: Location
+    
+    var imageURL: URL? {
+        return URL(string: img_url)
+    }
 }
 
 struct Location: Codable {
