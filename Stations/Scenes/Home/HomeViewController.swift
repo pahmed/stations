@@ -169,6 +169,40 @@ class HomeViewController: UIViewController {
                 self.view.layoutIfNeeded()
         }, completion: nil)
     }
+    
+    private func simulateBusTracking(positions: [CLLocationCoordinate2D]) {
+        let marker = GMSMarker()
+        marker.icon = Icon.busMarker
+        marker.zIndex = 1
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        
+        let distances = zip(positions, positions[1...]).compactMap({ $0.0.distance(from: $0.1) })
+        let totalDistance = distances.reduce(0.0, +)
+        let relativeDistances = distances.map({ $0 / totalDistance })
+        
+        let times = relativeDistances.reduce([0.0]) { result, value in
+            var newResult = result
+            newResult.append(result.last! + value)
+            return newResult
+        }
+        
+        let horizontal = CAKeyframeAnimation(keyPath: "longitude")
+        horizontal.values = positions.map({ $0.longitude })
+        horizontal.keyTimes = times as [NSNumber]
+        
+        let vertical = CAKeyframeAnimation(keyPath: "latitude")
+        vertical.values = positions.map({ $0.latitude })
+        vertical.keyTimes = times as [NSNumber]
+        
+        marker.map = mapView
+        
+        let group = CAAnimationGroup()
+        group.animations = [horizontal, vertical]
+        group.duration = Constants.Animation.simulatedBusTrackingDuration
+        group.repeatCount = Constants.Animation.simulatedBusTrackingRepeatCount
+        
+        marker.layer.add(group, forKey: "track")
+    }
 }
 
 // MARK: - DisplayLogic
@@ -220,6 +254,8 @@ extension HomeViewController: CAAnimationDelegate {
             .subscribe(onNext: { [weak self] _ in
                 self?.shapeLayer.removeFromSuperlayer()
             }).disposed(by: disposeBag)
+        
+        simulateBusTracking(positions: positions)
     }
 }
 

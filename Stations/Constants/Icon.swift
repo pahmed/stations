@@ -11,4 +11,5 @@ import UIKit
 struct Icon {
     static let defaultMarker = #imageLiteral(resourceName: "EndPoint")
     static let startMarker = #imageLiteral(resourceName: "StartPoint")
+    static let busMarker = #imageLiteral(resourceName: "Bus")
 }
