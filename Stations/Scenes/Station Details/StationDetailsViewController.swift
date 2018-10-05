@@ -9,7 +9,17 @@
 import UIKit
 import Kingfisher
 
+/// A protocol the defines the display logic abilities for a displayer.
+/// A displayer is responsible for displaying the view models it gets from
+/// a presenter, also responsible for passing the user events in form of command
+/// to the interactor to run the business logic
 protocol StationDetailsDisplayLogic {
+    
+    /// Displays an alert with the given title and message
+    ///
+    /// - Parameters:
+    ///   - title: The alert title
+    ///   - message: The alert body
     func displayAlert(title: String, message: String)
 }
 

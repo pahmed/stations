@@ -10,11 +10,23 @@ import UIKit
 import GoogleMaps
 import Hero
 
+/// A class that is responsible for presenting the station callout that appears when a user
+/// taps on a station marker.
+/// The class is also responsible for the transition animation from the callout to the StationDetails
 class CalloutAnimator: NSObject {
     
+    /// The presenter where the callout is presented on
     private let presenter: UIViewController
+    
+    /// A GMSMapView that acts as the source view for the popover, this is important in order to make
+    /// sure the popover is rendered in the correct position
     private let mapView: GMSMapView
+    
+    /// The callout to be presented in the popover
     private var callout: CalloutViewController!
+    
+    /// A temp view that represents a snapshot from the callout popover.
+    /// This is used to make the animation from the callout to the StationDetails
     private var snapshot: UIView?
     
     // MARK: - Initializers
@@ -26,6 +38,13 @@ class CalloutAnimator: NSObject {
     
     // MARK: - Public
     
+    /// Presents a popover callout at a given position on the map, containing the station details
+    ///
+    /// - Parameters:
+    ///   - point: The point at which the popover callout should be drawn
+    ///   - station: The station where its info to appear on the callout
+    ///   - animated: A flag that indicates weather the presentation should be with animation or not
+    ///   - completion: A closure to be called after presenting the callout
     func presentCallout(from point: CGPoint, for station: Station, animated: Bool = true, completion: (() -> Void)? = nil) {
         callout = CalloutViewController.calloutWith(station: station)
         callout.modalPresentationStyle = .popover

@@ -9,7 +9,11 @@
 import Foundation
 import Alamofire
 
+/// A protocol the defines the business logic abilities for an interactor
+/// An interactor is responsible for handling screen business logic
 protocol LinesBusinessLogic {
+    
+    /// Loads the list of lines and send to the presenter to be presented
     func loadLines()
 }
 

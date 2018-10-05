@@ -9,7 +9,8 @@
 import UIKit
 import Kingfisher
 
-final class CalloutViewController: UIViewController {
+/// A view controller that represents the station callout
+class CalloutViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!

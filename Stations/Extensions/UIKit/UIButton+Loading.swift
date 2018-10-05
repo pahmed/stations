@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// An extension to UIButton that adds support for showing loading indicator
 extension UIButton {
     
     private struct AssociatedKeys {

@@ -9,6 +9,12 @@
 import GoogleMaps
 
 extension GMSMapView {
+    
+    /// Shows a GMSMarker on map
+    ///
+    /// - Parameters:
+    ///   - station: The station to be shown
+    ///   - markerImage: An image for the station marker
     func showMarker(for station: Station, markerImage: UIImage) {
         let marker = GMSMarker(position: station.location.toLocationCoordinate2D)
         marker.icon = markerImage
@@ -19,6 +25,9 @@ extension GMSMapView {
         marker.userData = station
     }
     
+    /// Shows a GMSPath on map for a given list of CLLocationCoordinate2D
+    ///
+    /// - Parameter positions: The list of CLLocationCoordinate2D to be rendered
     func drawGMSPath(for positions: [CLLocationCoordinate2D]) {
         let polyline = GMSPolyline(path: positions.toGMSPath)
         polyline.strokeWidth = 3

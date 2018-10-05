@@ -8,13 +8,21 @@
 
 import Foundation
 
+/// A protocol the defines the business logic abilities for an interactor
+/// An interactor is responsible for handling screen business logic
 protocol StationDetailsBusinessLogic {
+    
+    /// Bookmark a station
+    ///
+    /// - Parameter station: The station to be bookmarked
     func bookmark(station: Station)
 }
 
 class StationDetailsInteractor: StationDetailsBusinessLogic {
     
     let presenter: StationDetailsPresentationLogic
+    
+    // MARK: - Initializers
     
     init(presenter: StationDetailsPresentationLogic) {
         self.presenter = presenter

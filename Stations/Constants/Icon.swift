@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// A constants struct for the list of images used in the app,
+/// any used image in the app should be defined in this struct
 struct Icon {
     static let defaultMarker = #imageLiteral(resourceName: "EndPoint")
     static let startMarker = #imageLiteral(resourceName: "StartPoint")

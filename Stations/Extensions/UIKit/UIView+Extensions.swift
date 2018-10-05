@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIView {
+    
+    /// Clones a UIView
+    ///
+    /// - Returns: A deep copy from this UIView
     func clone() -> UIView? {
         let data = NSKeyedArchiver.archivedData(withRootObject: self)
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? UIView
@@ -16,6 +20,10 @@ extension UIView {
 }
 
 extension UIView {
+    
+    /// A helper method that adds edges constraints that matches the super view
+    ///
+    /// - Parameter view: The view where the edges constraints should match
     func matchEdgesConstraints(for view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         

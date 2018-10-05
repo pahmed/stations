@@ -9,9 +9,16 @@
 import Foundation
 import Alamofire
 
+/// This class represents the network access layer.
+/// Any HTTP request should happen through an object of this class
 class API {
     static let shared = API()
     
+    /// Request the list of lines available
+    ///
+    /// - Parameter completion: A closure to be called on finishing the request
+    /// with either a success associated with the LinesResponse or failure associated with
+    /// the APIError
     func lines(completion: @escaping (Result<LinesResponse, APIError>) -> Void) {
         let request = self.request(
             for: "http://private-ab8af-swvl.apiary-mock.com/lines",
@@ -31,6 +38,12 @@ class API {
         }
     }
     
+    /// Bookmark a station
+    ///
+    /// - Parameters:
+    ///   - id: The id for the station to be bookmarked
+    ///   - completion: A closure to be called on finishing the request
+    /// with either a success or failure associated with the APIError
     func bookmarkStation(id: Int, completion: @escaping (Result<Void, APIError>) -> Void) {
         let request = self.request(
             for: "http://private-ab8af-swvl.apiary-mock.com/station/\(id)/bookmark",
