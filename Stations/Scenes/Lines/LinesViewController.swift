@@ -43,7 +43,7 @@ protocol LinesViewControllerDelegate: class {
     /// A method that is called on loading the list of line from an API
     ///
     /// - Parameter linesViewController: The delegating object
-    func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController)
+    func linesViewController(_ linesViewController: LinesViewController, didLoad lines: [Line])
 }
 
 /// A class that is responsible for rendering the list of Lines
@@ -91,7 +91,7 @@ extension LinesViewController: UICollectionViewDataSource, UICollectionViewDeleg
 // MARK: - DisplayLogic
 extension LinesViewController: LinesDisplayLogic {
     func display(lines: [Line]) {
-        self.delegate?.linesViewControllerDidLoadLines(self)
+        self.delegate?.linesViewController(self, didLoad: lines)
         self.lines = lines
         collectionView.reloadData()
     }

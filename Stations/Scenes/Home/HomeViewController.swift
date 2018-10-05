@@ -117,7 +117,11 @@ extension HomeViewController: LinesViewControllerDelegate {
         mapViewContentDrawer.draw(stations: line.stations)
     }
     
-    func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController) {
+    func linesViewController(_ linesViewController: LinesViewController, didLoad lines: [Line]) {
+        if let line = lines.first {
+            let positions = line.stations.map({ $0.location.toLocationCoordinate2D })
+            mapViewContentDrawer.focusMapCamera(on: positions, animated: false)
+        }
         loadingView.hide(completion: showLinesView)
     }
 }

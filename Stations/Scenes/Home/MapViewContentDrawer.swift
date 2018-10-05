@@ -57,10 +57,14 @@ class MapViewContentDrawer: NSObject {
     /// This method moves the map to the area containg only the given position while zooming in
     ///
     /// - Parameter positions: The positions to be focused on
-    private func focusMapCamera(on positions: [CLLocationCoordinate2D]) {
+    func focusMapCamera(on positions: [CLLocationCoordinate2D], animated: Bool = true) {
         let bounds = GMSCoordinateBounds(path: positions.toGMSPath)
         let camera = mapView.camera(for: bounds, insets: UIEdgeInsets(all: 60))!
-        mapView.animate(to: camera)
+        if animated {
+            mapView.animate(to: camera)
+        } else {
+            mapView.camera = camera
+        }
     }
     
     /// Draw station markers for the given stations with animation on periodic intervals
