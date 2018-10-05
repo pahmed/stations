@@ -80,6 +80,7 @@
 		0F373F7B2166D9D800BC64DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0F373F7D2166F10E00BC64DA /* MapViewContentDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContentDrawer.swift; sourceTree = "<group>"; };
 		0F373F7F2166F87200BC64DA /* CalloutAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutAnimator.swift; sourceTree = "<group>"; };
+		0F373F8121671F1C00BC64DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0FB6968D21647EA30010AABD /* Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB6969021647EA30010AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FB6969521647EA30010AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -186,8 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				0F373F72216659A000BC64DA /* Alert.swift */,
-				0F373F7D2166F10E00BC64DA /* MapViewContentDrawer.swift */,
-				0F373F7F2166F87200BC64DA /* CalloutAnimator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -203,6 +202,7 @@
 		0FB6968421647EA30010AABD = {
 			isa = PBXGroup;
 			children = (
+				0F373F8121671F1C00BC64DA /* README.md */,
 				0FB6968F21647EA30010AABD /* Stations */,
 				0FB696A421647EA40010AABD /* StationsTests */,
 				0FB6968E21647EA30010AABD /* Products */,
@@ -224,13 +224,13 @@
 			isa = PBXGroup;
 			children = (
 				0FB6969021647EA30010AABD /* AppDelegate.swift */,
-				0F373F7A2166D9B900BC64DA /* Custom Controls */,
-				0F373F712166599300BC64DA /* Utils */,
-				0F373F572165CC3F00BC64DA /* Extensions */,
 				0F373F4721653B5A00BC64DA /* Models */,
-				0FB696B22164807E0010AABD /* Scenes */,
-				0FB696B1216480660010AABD /* Networking */,
+				0F373F712166599300BC64DA /* Utils */,
 				0FB696B0216480590010AABD /* Constants */,
+				0FB696B1216480660010AABD /* Networking */,
+				0FB696B22164807E0010AABD /* Scenes */,
+				0F373F572165CC3F00BC64DA /* Extensions */,
+				0F373F7A2166D9B900BC64DA /* Custom Controls */,
 				0FB6969421647EA30010AABD /* Main.storyboard */,
 				0FB6969721647EA30010AABD /* Assets.xcassets */,
 				0FB6969921647EA30010AABD /* LaunchScreen.storyboard */,
@@ -282,6 +282,8 @@
 		0FB696B3216483E60010AABD /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0F373F7D2166F10E00BC64DA /* MapViewContentDrawer.swift */,
+				0F373F7F2166F87200BC64DA /* CalloutAnimator.swift */,
 				0FB696B4216483FB0010AABD /* HomeViewController.swift */,
 			);
 			path = Home;
