@@ -14,3 +14,14 @@ extension UIView {
         return NSKeyedUnarchiver.unarchiveObject(with: data) as? UIView
     }
 }
+
+extension UIView {
+    func matchEdgesConstraints(for view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    }
+}

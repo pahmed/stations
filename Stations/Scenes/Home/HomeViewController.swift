@@ -29,6 +29,8 @@ class HomeViewController: UIViewController {
     var callout: CalloutViewController!
     var snapshot: UIView?
     
+    lazy var loadingView: LoadingView = LoadingView()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -37,10 +39,18 @@ class HomeViewController: UIViewController {
         setupMapView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showLoading()
+    }
+    
+    func showLoading() {
+        loadingView.show(in: self.view)
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         switch segue.identifier {
         case .some("lines"):
             (segue.destination as! LinesViewController).delegate = self
@@ -172,6 +182,7 @@ class HomeViewController: UIViewController {
     
     private func simulateBusTracking(positions: [CLLocationCoordinate2D]) {
         let marker = GMSMarker()
+        marker.appearAnimation = .pop
         marker.icon = Icon.busMarker
         marker.zIndex = 1
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
@@ -235,7 +246,7 @@ extension HomeViewController: LinesViewControllerDelegate {
     }
     
     func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController) {
-        showLinesView()
+        loadingView.hide(completion: showLinesView)
     }
 }
 

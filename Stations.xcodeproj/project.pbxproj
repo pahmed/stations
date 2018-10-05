@@ -29,6 +29,7 @@
 		0F373F7521665BA200BC64DA /* UIButton+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F7421665BA200BC64DA /* UIButton+Loading.swift */; };
 		0F373F772166C6AB00BC64DA /* CLLocationCoordinate2D+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F762166C6AB00BC64DA /* CLLocationCoordinate2D+Distance.swift */; };
 		0F373F792166CCD300BC64DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F782166CCD300BC64DA /* Constants.swift */; };
+		0F373F7C2166D9D800BC64DA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F373F7B2166D9D800BC64DA /* LoadingView.swift */; };
 		0FB6969121647EA30010AABD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB6969021647EA30010AABD /* AppDelegate.swift */; };
 		0FB6969621647EA30010AABD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969421647EA30010AABD /* Main.storyboard */; };
 		0FB6969821647EA30010AABD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FB6969721647EA30010AABD /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		0F373F7421665BA200BC64DA /* UIButton+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Loading.swift"; sourceTree = "<group>"; };
 		0F373F762166C6AB00BC64DA /* CLLocationCoordinate2D+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Distance.swift"; sourceTree = "<group>"; };
 		0F373F782166CCD300BC64DA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0F373F7B2166D9D800BC64DA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		0FB6968D21647EA30010AABD /* Stations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FB6969021647EA30010AABD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FB6969521647EA30010AABD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -188,6 +190,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		0F373F7A2166D9B900BC64DA /* Custom Controls */ = {
+			isa = PBXGroup;
+			children = (
+				0F373F7B2166D9D800BC64DA /* LoadingView.swift */,
+			);
+			path = "Custom Controls";
+			sourceTree = "<group>";
+		};
 		0FB6968421647EA30010AABD = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB6969021647EA30010AABD /* AppDelegate.swift */,
+				0F373F7A2166D9B900BC64DA /* Custom Controls */,
 				0F373F712166599300BC64DA /* Utils */,
 				0F373F572165CC3F00BC64DA /* Extensions */,
 				0F373F4721653B5A00BC64DA /* Models */,
@@ -506,6 +517,7 @@
 				0F373F422165386C00BC64DA /* LinesViewController.swift in Sources */,
 				0F373F5D2165DA5900BC64DA /* StationDetailsViewController.swift in Sources */,
 				0F373F4B21653C6A00BC64DA /* LinesPresenter.swift in Sources */,
+				0F373F7C2166D9D800BC64DA /* LoadingView.swift in Sources */,
 				0F373F562165C77B00BC64DA /* CalloutViewController.swift in Sources */,
 				0F373F73216659A000BC64DA /* Alert.swift in Sources */,
 				0F373F6E2166574500BC64DA /* StationDetailsInteractor.swift in Sources */,
