@@ -68,6 +68,7 @@ class HomeViewController: UIViewController {
         mapView = GMSMapView(frame: CGRect.zero)
         mapView.isMyLocationEnabled = true
         mapView.settings.setAllGesturesEnabled(false)
+        mapView.settings.myLocationButton = true
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(mapView, at: 0)
@@ -99,9 +100,12 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let point = mapView.projection.point(for: marker.position)
+        // `marker.userData` could be nil if the marker e.g. is for bus
+        guard let station = marker.userData as? Station else {
+            return false
+        }
         
-        let station = marker.userData as! Station
+        let point = mapView.projection.point(for: marker.position)
         
         calloutAnimator.presentCallout(from: point, for: station)
         return true
@@ -118,7 +122,7 @@ extension HomeViewController: LinesViewControllerDelegate {
     }
     
     func linesViewController(_ linesViewController: LinesViewController, didLoad lines: [Line]) {
-        if let line = lines.first {
+        if let line = lines.last {
             let positions = line.stations.map({ $0.location.toLocationCoordinate2D })
             mapViewContentDrawer.focusMapCamera(on: positions, animated: false)
         }
@@ -128,6 +132,8 @@ extension HomeViewController: LinesViewControllerDelegate {
 
 // MARK: - UIPopoverPresentationControllerDelegate
 
+// This is important to be there to enable showing Popover on iPhone
+// EVEN WHEN EMPTY
 extension HomeViewController: UIPopoverPresentationControllerDelegate {
     
 }
