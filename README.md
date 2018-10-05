@@ -17,8 +17,6 @@ The application follows VIP (View - Interactor - Presenter) when possible, but a
 
 The VIP pattern, this is a unidirectional data flow pattern. The implementation of this pattern is inspired by [Clean Swift](http://clean-swift.com/) based on Uncle bob [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-![VIP](http://clean-swift.com/wp-content/uploads/2015/08/VIP-Cycle.png)
-
 ### View
 
 A `View` is represented by a UIViewController, this is responsible for receiving user events and pass it to the interactor in a form of request to do some business logic. A `View` is also responsible for displaying the presentable view model it gets from the presenter.
