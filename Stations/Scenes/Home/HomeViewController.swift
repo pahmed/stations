@@ -9,27 +9,25 @@
 import UIKit
 import GoogleMaps
 import RxSwift
-import Hero
-
-protocol HomeDisplayLogic {
-    
-}
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var linesBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var linesBottomConstraint: NSLayoutConstraint!
     private var mapView: GMSMapView!
     private var disposeBag = DisposeBag()
     
-    lazy var interactor: HomeBusinessLogic = {
-        return HomeInteractor(presenter: HomePresenter(displayer: self))
+    private lazy var mapViewContentDrawer: MapViewContentDrawer = {
+       let drawer = MapViewContentDrawer(mapView: mapView)
+        return drawer
     }()
-    var shapeLayer: CAShapeLayer!
-    var selectedLine: Line?
-    var callout: CalloutViewController!
-    var snapshot: UIView?
     
-    lazy var loadingView: LoadingView = LoadingView()
+    private lazy var calloutAnimator: CalloutAnimator = {
+        let animator = CalloutAnimator(presenter: self, mapView: mapView)
+        return animator
+    }()
+    
+    private var selectedLine: Line?
+    private lazy var loadingView: LoadingView = LoadingView()
     
     // MARK: - Lifecycle
     
@@ -60,43 +58,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func renderCalloutSnapshot() {
-        snapshot?.removeFromSuperview()
-        snapshot = mapView.snapshotFor(callout: callout, in: view)
-        view.addSubview(snapshot!)
-    }
-    
-    private func presentCallout(from point: CGPoint, for station: Station, animated: Bool = true, completion: (() -> Void)? = nil) {
-        callout = CalloutViewController.calloutWith(station: station)
-        callout.modalPresentationStyle = .popover
-        
-        callout.handleTap = { [weak self] in
-            self?.renderCalloutSnapshot()
-            
-            let detailsVC = StationDetailsViewController.controllerWith(station: station)
-            detailsVC.handleDismiss = { vc in
-                vc.dismiss(animated: true)
-                self?.presentCallout(from: point, for: station, animated: false) {
-                    self?.snapshot!.removeFromSuperview()
-                }
-            }
-            
-            self?.callout.dismiss(animated: false)
-            
-            self?.present(detailsVC, animated: true)
-        }
-        
-        let popover = callout.popoverPresentationController!
-        popover.delegate = self
-        
-        let rect = CGRect(origin: point, size: CGSize.zero).inset(by: UIEdgeInsets(all: 15))
-        
-        popover.permittedArrowDirections = [.down]
-        popover.sourceView = mapView
-        popover.sourceRect = rect
-        present(callout, animated: animated, completion: completion)
-    }
-    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -118,54 +79,6 @@ class HomeViewController: UIViewController {
         mapView.delegate = self
     }
     
-    private func clearMap() {
-        shapeLayer?.removeAnimation(forKey: "strokeEnd")
-        shapeLayer?.removeFromSuperlayer()
-        mapView.clear()
-    }
-    
-    private func draw(stations: [Station]) {
-        clearMap()
-        
-        let positions = stations.map({ $0.location.toLocationCoordinate2D })
-        let bounds = GMSCoordinateBounds(path: positions.toGMSPath)
-        
-        let camera = mapView.camera(for: bounds, insets: UIEdgeInsets(all: 60))!
-        mapView.animate(to: camera)
-        
-        Observable<Int>
-            .interval(RxTimeInterval(0.2), scheduler: MainScheduler.instance)
-            .take(positions.count)
-            .delaySubscription(0.2, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] index in
-                let markerImage = Icon.defaultMarker
-                self?.mapView.showMarker(for: stations[index], markerImage: markerImage)
-                }, onCompleted: { [weak self] in
-                    self?.drawNativePath(for: positions)
-            }).disposed(by: disposeBag)
-    }
-    
-    private func drawNativePath(for positions: [CLLocationCoordinate2D]) {
-        shapeLayer = mapView.shapeLayerFrom(positions: positions)
-
-        shapeLayer.zPosition = 1
-        mapView.layer.addSublayer(shapeLayer)
-        
-        animate(shapeLayer: shapeLayer)
-    }
-    
-    private func animate(shapeLayer: CAShapeLayer) {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.duration = 0.5
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.delegate = self
-        
-        shapeLayer.add(animation, forKey: animation.keyPath)
-    }
-    
     private func showLinesView() {
         linesBottomConstraint.constant = 16.0
         
@@ -179,59 +92,17 @@ class HomeViewController: UIViewController {
                 self.view.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    private func simulateBusTracking(positions: [CLLocationCoordinate2D]) {
-        let marker = GMSMarker()
-        marker.appearAnimation = .pop
-        marker.icon = Icon.busMarker
-        marker.zIndex = 1
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-        
-        let distances = zip(positions, positions[1...]).compactMap({ $0.0.distance(from: $0.1) })
-        let totalDistance = distances.reduce(0.0, +)
-        let relativeDistances = distances.map({ $0 / totalDistance })
-        
-        let times = relativeDistances.reduce([0.0]) { result, value in
-            var newResult = result
-            newResult.append(result.last! + value)
-            return newResult
-        }
-        
-        let horizontal = CAKeyframeAnimation(keyPath: "longitude")
-        horizontal.values = positions.map({ $0.longitude })
-        horizontal.keyTimes = times as [NSNumber]
-        
-        let vertical = CAKeyframeAnimation(keyPath: "latitude")
-        vertical.values = positions.map({ $0.latitude })
-        vertical.keyTimes = times as [NSNumber]
-        
-        marker.map = mapView
-        
-        let group = CAAnimationGroup()
-        group.animations = [horizontal, vertical]
-        group.duration = Constants.Animation.simulatedBusTrackingDuration
-        group.repeatCount = Constants.Animation.simulatedBusTrackingRepeatCount
-        
-        marker.layer.add(group, forKey: "track")
-    }
-}
-
-// MARK: - DisplayLogic
-
-extension HomeViewController: HomeDisplayLogic {
-    
 }
 
 // MARK: - GMSMapViewDelegate
 
 extension HomeViewController: GMSMapViewDelegate {
-    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         let point = mapView.projection.point(for: marker.position)
         
         let station = marker.userData as! Station
         
-        presentCallout(from: point, for: station)
+        calloutAnimator.presentCallout(from: point, for: station)
         return true
     }
     
@@ -242,31 +113,11 @@ extension HomeViewController: GMSMapViewDelegate {
 extension HomeViewController: LinesViewControllerDelegate {
     func linesViewController(_ linesViewController: LinesViewController, didSelect line: Line) {
         selectedLine = line
-        draw(stations: line.stations)
+        mapViewContentDrawer.draw(stations: line.stations)
     }
     
     func linesViewControllerDidLoadLines(_ linesViewController: LinesViewController) {
         loadingView.hide(completion: showLinesView)
-    }
-}
-
-// MARK: - CAAnimationDelegate
-
-extension HomeViewController: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        let positions = selectedLine!.stations.map({ $0.location.toLocationCoordinate2D })
-        
-        mapView.drawPath(for: positions)
-        
-        Observable<Int>
-            .interval(RxTimeInterval(0.2), scheduler: MainScheduler.instance)
-            .take(1)
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.shapeLayer.removeFromSuperlayer()
-            }).disposed(by: disposeBag)
-        
-        simulateBusTracking(positions: positions)
     }
 }
 
