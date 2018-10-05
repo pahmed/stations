@@ -67,6 +67,7 @@ class HomeViewController: UIViewController {
     private func setupMapView() {
         mapView = GMSMapView(frame: CGRect.zero)
         mapView.isMyLocationEnabled = true
+        mapView.settings.setAllGesturesEnabled(false)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(mapView, at: 0)

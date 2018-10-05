@@ -15,7 +15,7 @@ class MapViewContentDrawer: NSObject {
     
     /// The GMSMapView where the drawings happen
     private let mapView: GMSMapView
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     /// A CAShapeLayer that is used to draw the bus route with animation
     private var shapeLayer: CAShapeLayer!
@@ -88,6 +88,7 @@ class MapViewContentDrawer: NSObject {
         shapeLayer?.removeAnimation(forKey: "strokeEnd")
         shapeLayer?.removeFromSuperlayer()
         mapView.clear()
+        disposeBag = DisposeBag()
     }
     
     // MARK: - Path animation
@@ -111,7 +112,7 @@ class MapViewContentDrawer: NSObject {
     ///   - mapView: The GMSMapView where the drawings happen, used to calculate the
     /// projection points for the positions on the map
     /// - Returns: A CAShapeLayer representing the positions list
-    func shapeLayerFrom(positions: [CLLocationCoordinate2D], mapView: GMSMapView) -> CAShapeLayer {
+    private func shapeLayerFrom(positions: [CLLocationCoordinate2D], mapView: GMSMapView) -> CAShapeLayer {
         var points = positions.map({ mapView.projection.point(for: $0) })
         
         let bezierPath = UIBezierPath()
@@ -140,7 +141,7 @@ class MapViewContentDrawer: NSObject {
         
         animation.fromValue = 0
         animation.toValue = 1
-        animation.duration = 0.5
+        animation.duration = Constants.Animation.busRouteAnimationDuration
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.delegate = self
         
@@ -225,6 +226,8 @@ class MapViewContentDrawer: NSObject {
 
 extension MapViewContentDrawer: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag else { return }
+        
         let positions = stations.map({ $0.location.toLocationCoordinate2D })
         
         mapView.drawGMSPath(for: positions)
@@ -233,7 +236,6 @@ extension MapViewContentDrawer: CAAnimationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.shapeLayer.removeFromSuperlayer()
         }
-        
         simulateBusTracking(positions: positions)
     }
 }
