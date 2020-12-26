@@ -18,7 +18,7 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_12.3.app
 
     - name: Install Pods
-      run: pod install
+      run: pod install --verbose
     
     - name: Build and Test
-      run: xcodebuild clean build -sdk iphonesimulator
+      run: xcodebuild clean build -sdk iphonesimulator | xcpretty
