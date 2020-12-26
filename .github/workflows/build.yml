@@ -1,4 +1,4 @@
-name: Swift
+name: CI
 
 on:
   push:
@@ -12,5 +12,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: sparkfabrik/ios-build-action@v1.1.0
-      name: Build
+    - uses: actions/checkout@v2
+
+    - name: Select Xcode 12.3
+      run: sudo xcode-select -s /Applications/Xcode_12.3.app
+
+    - name: Build and Test
+      run: xcodebuild clean build -sdk iphonesimulator
