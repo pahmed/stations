@@ -13,4 +13,4 @@ jobs:
 
     steps:
     - uses: sparkfabrik/ios-build-action@v1.0.0
-    - name: Build
+      name: Build
