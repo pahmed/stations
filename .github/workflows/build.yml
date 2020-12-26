@@ -12,5 +12,5 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: yukiarrr/ios-build-action@v1.3.1
+    - uses: sparkfabrik/ios-build-action@v1.0.0
     - name: Build
